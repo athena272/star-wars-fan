@@ -1,0 +1,185 @@
+# Star Wars Fan API - Importar no Insomnia (Import → From File → OpenAPI)
+# Produção: https://us-central1-smooth-helper-486601-t3.cloudfunctions.net/star-wars-fan
+
+openapi: 3.0.3
+info:
+  title: Star Wars Fan API
+  description: API REST que consome a SWAPI (filmes, personagens, planetas, naves). Sem autenticação na implantação atual.
+  version: 1.0.0
+
+servers:
+  - url: https://us-central1-smooth-helper-486601-t3.cloudfunctions.net/star-wars-fan
+    description: Produção (Cloud Function)
+  - url: http://localhost:8080
+    description: Local (uvicorn)
+
+paths:
+  /:
+    get:
+      summary: Informações da API
+  /health:
+    get:
+      summary: Health check
+  /films:
+    get:
+      summary: Lista filmes
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum: [title, episode_id, release_date]
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+        - name: character_id
+          in: query
+          schema:
+            type: integer
+  /films/{film_id}:
+    get:
+      summary: Detalhe do filme
+      parameters:
+        - name: film_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: expand
+          in: query
+          schema:
+            type: string
+  /films/{film_id}/characters:
+    get:
+      summary: Personagens do filme (correlacionado)
+      parameters:
+        - name: film_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          schema:
+            type: string
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+  /people:
+    get:
+      summary: Lista personagens
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: gender
+          in: query
+          schema:
+            type: string
+        - name: sort
+          in: query
+          schema:
+            type: string
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+  /people/{person_id}:
+    get:
+      summary: Detalhe do personagem
+      parameters:
+        - name: person_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: expand
+          in: query
+          schema:
+            type: string
+  /planets:
+    get:
+      summary: Lista planetas
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: sort
+          in: query
+          schema:
+            type: string
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+  /planets/{planet_id}:
+    get:
+      summary: Detalhe do planeta
+      parameters:
+        - name: planet_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: expand
+          in: query
+          schema:
+            type: string
+  /starships:
+    get:
+      summary: Lista naves
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: sort
+          in: query
+          schema:
+            type: string
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+  /starships/{starship_id}:
+    get:
+      summary: Detalhe da nave
+      parameters:
+        - name: starship_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: expand
+          in: query
+          schema:
+            type: string

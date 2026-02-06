@@ -1,4 +1,5 @@
-# Star Wars Fan API - Importar no Insomnia (Import → From File → OpenAPI)
+# Especificação OpenAPI 3.0 - Star Wars Fan API
+# Uso: documentação, Swagger Editor, Postman, Insomnia, clientes gerados
 # Produção: https://us-central1-smooth-helper-486601-t3.cloudfunctions.net/star-wars-fan
 
 openapi: 3.0.3
@@ -17,9 +18,15 @@ paths:
   /:
     get:
       summary: Informações da API
+      responses:
+        "200":
+          description: Informações da API e links para recursos
   /health:
     get:
       summary: Health check
+      responses:
+        "200":
+          description: OK
   /films:
     get:
       summary: Lista filmes
@@ -46,6 +53,9 @@ paths:
           in: query
           schema:
             type: integer
+      responses:
+        "200":
+          description: Lista de filmes
   /films/{film_id}:
     get:
       summary: Detalhe do filme
@@ -59,6 +69,11 @@ paths:
           in: query
           schema:
             type: string
+      responses:
+        "200":
+          description: Detalhe do filme
+        "404":
+          description: Filme não encontrado
   /films/{film_id}/characters:
     get:
       summary: Personagens do filme (correlacionado)
@@ -77,6 +92,11 @@ paths:
           schema:
             type: string
             enum: [asc, desc]
+      responses:
+        "200":
+          description: Lista de personagens do filme
+        "404":
+          description: Filme não encontrado
   /people:
     get:
       summary: Lista personagens
@@ -102,6 +122,9 @@ paths:
           schema:
             type: string
             enum: [asc, desc]
+      responses:
+        "200":
+          description: Lista de personagens
   /people/{person_id}:
     get:
       summary: Detalhe do personagem
@@ -115,6 +138,11 @@ paths:
           in: query
           schema:
             type: string
+      responses:
+        "200":
+          description: Detalhe do personagem
+        "404":
+          description: Personagem não encontrado
   /planets:
     get:
       summary: Lista planetas
@@ -136,6 +164,9 @@ paths:
           schema:
             type: string
             enum: [asc, desc]
+      responses:
+        "200":
+          description: Lista de planetas
   /planets/{planet_id}:
     get:
       summary: Detalhe do planeta
@@ -149,6 +180,11 @@ paths:
           in: query
           schema:
             type: string
+      responses:
+        "200":
+          description: Detalhe do planeta
+        "404":
+          description: Planeta não encontrado
   /starships:
     get:
       summary: Lista naves
@@ -170,6 +206,9 @@ paths:
           schema:
             type: string
             enum: [asc, desc]
+      responses:
+        "200":
+          description: Lista de naves
   /starships/{starship_id}:
     get:
       summary: Detalhe da nave
@@ -183,3 +222,8 @@ paths:
           in: query
           schema:
             type: string
+      responses:
+        "200":
+          description: Detalhe da nave
+        "404":
+          description: Nave não encontrada

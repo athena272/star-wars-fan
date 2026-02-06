@@ -108,7 +108,7 @@ curl "https://us-central1-smooth-helper-486601-t3.cloudfunctions.net/star-wars-f
 curl "https://us-central1-smooth-helper-486601-t3.cloudfunctions.net/star-wars-fan/films/1/characters"
 ```
 
-Lista completa de endpoints e parâmetros em [docs/API.md](docs/API.md).
+Lista completa de endpoints e parâmetros em [docs/API.md](docs/API.md). Documentação interativa (SwaggerHub): [star-wars-fan-api 1.0.0](https://app.swaggerhub.com/apis-docs/GUILHERMERA272/star-wars-fan-api/1.0.0).
 
 **Reproduzir o deploy:** o projeto inclui o script [scripts/deploy.sh](scripts/deploy.sh) e a especificação OpenAPI em [openapi/api_config.yaml](openapi/api_config.yaml). A arquitetura e o fluxo de deploy estão descritos em [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
@@ -116,6 +116,7 @@ Lista completa de endpoints e parâmetros em [docs/API.md](docs/API.md).
 
 - [Arquitetura](docs/ARCHITECTURE.md): Diagrama, componentes, fluxo, cache e decisões.
 - [API](docs/API.md): Endpoints, parâmetros e exemplos.
+- [OpenAPI](openapi/star-wars-fan.yaml): Especificação OpenAPI 3.0. Documentação interativa publicada: [SwaggerHub](https://app.swaggerhub.com/apis-docs/GUILHERMERA272/star-wars-fan-api/1.0.0).
 
 ## Estrutura do projeto
 
@@ -129,7 +130,8 @@ star-wars-fan/
 │   ├── services/            # swapi_client, formatters
 │   └── schemas/             # Pydantic (SortOrder, etc.)
 ├── openapi/
-│   └── api_config.yaml      # OpenAPI para API Gateway
+│   ├── api_config.yaml      # OpenAPI para GCP API Gateway
+│   └── star-wars-fan.yaml   # OpenAPI 3.0 para documentação e import (Swagger, Postman, Insomnia)
 ├── tests/                   # Testes unitários (pytest)
 ├── docs/
 │   ├── ARCHITECTURE.md

@@ -17,11 +17,19 @@ A criação e gestão da API Key é feita no console do GCP (API Gateway / API K
 - **Local**: `http://localhost:8080` (ou a porta configurada no uvicorn).
 - **Produção**: `https://us-central1-smooth-helper-486601-t3.cloudfunctions.net/star-wars-fan`
 
+## Especificação OpenAPI
+
+**Documentação interativa publicada (SwaggerHub):**  
+[https://app.swaggerhub.com/apis-docs/GUILHERMERA272/star-wars-fan-api/1.0.0](https://app.swaggerhub.com/apis-docs/GUILHERMERA272/star-wars-fan-api/1.0.0) — visualização só leitura, com possibilidade de testar os endpoints.
+
+A API é descrita em OpenAPI 3.0 no arquivo [openapi/star-wars-fan.yaml](../openapi/star-wars-fan.yaml). Com ele você pode:
+
+- **Visualizar documentação interativa:** abra [editor.swagger.io](https://editor.swagger.io), use *File → Import file* e selecione o `star-wars-fan.yaml` (ou cole o conteúdo). O Swagger Editor gera a documentação e permite testar os endpoints.
+- **Importar em ferramentas:** Postman e Insomnia aceitam importação de OpenAPI (Import → From File). Serão criadas requisições para todos os endpoints com a URL de produção já configurada.
+
 ## Testando com Insomnia ou Postman
 
-A API é REST: use a Base URL acima e adicione o path do endpoint (ex.: `/people/1`, `/films`, `/health`). Método **GET** para todos os endpoints atuais. Não é necessário configurar autenticação na requisição. Exemplo: `GET https://us-central1-smooth-helper-486601-t3.cloudfunctions.net/star-wars-fan/people/1`
-
-**Template para Insomnia:** o arquivo [insomnia/star-wars-fan-api.yaml](../insomnia/star-wars-fan-api.yaml) é uma especificação OpenAPI que pode ser importada no Insomnia (Application → Import/Export → Import Data → From File). Serão criadas requisições para todos os endpoints com a URL de produção já configurada.
+A API é REST: use a Base URL acima e adicione o path do endpoint (ex.: `/people/1`, `/films`, `/health`). Método **GET** para todos os endpoints atuais. Não é necessário configurar autenticação na requisição. Para ter todas as requisições prontas, importe o arquivo [openapi/star-wars-fan.yaml](../openapi/star-wars-fan.yaml) na ferramenta (Import → OpenAPI).
 
 ## Endpoints
 

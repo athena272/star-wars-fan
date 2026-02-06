@@ -1,0 +1,244 @@
+# OpenAPI 3.0 config for GCP API Gateway
+# Replace CLOUD_FUNCTION_URL with your Cloud Function URL after deploy
+# Example: https://us-central1-PROJECT.cloudfunctions.net/star-wars-fan
+
+openapi: 3.0.3
+info:
+  title: Star Wars Fan API
+  description: API for Star Wars data (SWAPI) with filters, sort, and correlated queries.
+  version: 1.0.0
+
+x-google-api-management:
+  backends:
+    cloud-function:
+      address: https://CLOUD_FUNCTION_URL
+      path_translation: APPEND_PATH_TO_ADDRESS
+      protocol: http/1.1
+
+security:
+  - api_key: []
+
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-API-Key
+      in: header
+      description: API Key for authentication (create in GCP API Gateway / API Keys)
+
+paths:
+  /:
+    get:
+      summary: API info and health
+      operationId: root
+      responses:
+        "200":
+          description: API info
+  /health:
+    get:
+      summary: Health check
+      operationId: health
+      responses:
+        "200":
+          description: OK
+  /films:
+    get:
+      summary: List films
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum: [title, episode_id, release_date]
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+        - name: character_id
+          in: query
+          description: Filter films where this character appears
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of films
+  /films/{film_id}:
+    get:
+      summary: Get film by id
+      parameters:
+        - name: film_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: expand
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Film details
+        "404":
+          description: Film not found
+  /films/{film_id}/characters:
+    get:
+      summary: Get characters in film (correlated)
+      parameters:
+        - name: film_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          schema:
+            type: string
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+      responses:
+        "200":
+          description: List of characters
+        "404":
+          description: Film not found
+  /people:
+    get:
+      summary: List people
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: gender
+          in: query
+          schema:
+            type: string
+        - name: sort
+          in: query
+          schema:
+            type: string
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+      responses:
+        "200":
+          description: List of people
+  /people/{person_id}:
+    get:
+      summary: Get person by id
+      parameters:
+        - name: person_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: expand
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Person details
+        "404":
+          description: Person not found
+  /planets:
+    get:
+      summary: List planets
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: sort
+          in: query
+          schema:
+            type: string
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+      responses:
+        "200":
+          description: List of planets
+  /planets/{planet_id}:
+    get:
+      summary: Get planet by id
+      parameters:
+        - name: planet_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: expand
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Planet details
+        "404":
+          description: Planet not found
+  /starships:
+    get:
+      summary: List starships
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: sort
+          in: query
+          schema:
+            type: string
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+      responses:
+        "200":
+          description: List of starships
+  /starships/{starship_id}:
+    get:
+      summary: Get starship by id
+      parameters:
+        - name: starship_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: expand
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Starship details
+        "404":
+          description: Starship not found

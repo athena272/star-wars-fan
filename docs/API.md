@@ -2,18 +2,26 @@
 
 ## Autenticação
 
-A API pode ser protegida por **API Key** no GCP API Gateway. Envie o header:
+Na implantação atual (Cloud Function direta), **nenhuma API Key é necessária**: todos os endpoints são públicos e podem ser chamados sem header de autenticação.
+
+Se no futuro a API for exposta através do **GCP API Gateway** com proteção por API Key, será preciso enviar o header:
 
 ```
 X-API-Key: <sua-api-key>
 ```
 
-Sem a chave (ou com chave inválida), o gateway retorna 403. A criação e gestão da API Key é feita no console do GCP (API Gateway / API Keys).
+A criação e gestão da API Key é feita no console do GCP (API Gateway / API Keys). Sem a chave (ou com chave inválida), o gateway retornaria 403.
 
 ## Base URL
 
 - **Local**: `http://localhost:8080` (ou a porta configurada no uvicorn).
-- **Produção**: URL do API Gateway após o deploy (ex.: `https://gateway-xxx.apigateway.PROJECT.cloud.goog`).
+- **Produção**: `https://us-central1-smooth-helper-486601-t3.cloudfunctions.net/star-wars-fan`
+
+## Testando com Insomnia ou Postman
+
+A API é REST: use a Base URL acima e adicione o path do endpoint (ex.: `/people/1`, `/films`, `/health`). Método **GET** para todos os endpoints atuais. Não é necessário configurar autenticação na requisição. Exemplo: `GET https://us-central1-smooth-helper-486601-t3.cloudfunctions.net/star-wars-fan/people/1`
+
+**Template para Insomnia:** o arquivo [insomnia/star-wars-fan-api.yaml](../insomnia/star-wars-fan-api.yaml) é uma especificação OpenAPI que pode ser importada no Insomnia (Application → Import/Export → Import Data → From File). Serão criadas requisições para todos os endpoints com a URL de produção já configurada.
 
 ## Endpoints
 

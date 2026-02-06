@@ -2,15 +2,7 @@
 
 ## Autenticação
 
-Na implantação atual (Cloud Function direta), **nenhuma API Key é necessária**: todos os endpoints são públicos e podem ser chamados sem header de autenticação.
-
-Se no futuro a API for exposta através do **GCP API Gateway** com proteção por API Key, será preciso enviar o header:
-
-```
-X-API-Key: <sua-api-key>
-```
-
-A criação e gestão da API Key é feita no console do GCP (API Gateway / API Keys). Sem a chave (ou com chave inválida), o gateway retornaria 403.
+Na implantação atual não é necessária autenticação: todos os endpoints são públicos.
 
 ## Base URL
 

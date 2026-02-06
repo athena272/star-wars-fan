@@ -82,24 +82,35 @@ Com o ambiente virtual ativado:
 pytest tests/ -v
 ```
 
-## Deploy no GCP
+## API em produção
 
-1. Configure o projeto e a região:
+A API está publicada no GCP (Cloud Functions 2ª geração). Para acessar:
 
-   ```bash
-   gcloud config set project SEU_PROJECT_ID
-   export REGION=us-central1
-   ```
+**URL base:**  
+https://us-central1-smooth-helper-486601-t3.cloudfunctions.net/star-wars-fan
 
-2. Ative as APIs necessárias:
+**Exemplos:**
 
-   ```bash
-   gcloud services enable cloudfunctions.googleapis.com run.googleapis.com apigateway.googleapis.com
-   ```
+```bash
+# Health check
+curl "https://us-central1-smooth-helper-486601-t3.cloudfunctions.net/star-wars-fan/health"
 
-3. Faça o deploy da Cloud Function e do API Gateway usando o script em `scripts/deploy.sh` (ou siga os passos em [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) e na documentação do GCP).
+# Informações da API
+curl "https://us-central1-smooth-helper-486601-t3.cloudfunctions.net/star-wars-fan/"
 
-Detalhes do script de deploy: [scripts/deploy.sh](scripts/deploy.sh).
+# Personagem por id
+curl "https://us-central1-smooth-helper-486601-t3.cloudfunctions.net/star-wars-fan/people/1"
+
+# Listar filmes com busca e ordenação
+curl "https://us-central1-smooth-helper-486601-t3.cloudfunctions.net/star-wars-fan/films?search=hope&sort=title&order=asc"
+
+# Personagens de um filme (consulta correlacionada)
+curl "https://us-central1-smooth-helper-486601-t3.cloudfunctions.net/star-wars-fan/films/1/characters"
+```
+
+Lista completa de endpoints e parâmetros em [docs/API.md](docs/API.md).
+
+**Reproduzir o deploy:** o projeto inclui o script [scripts/deploy.sh](scripts/deploy.sh) e a especificação OpenAPI em [openapi/api_config.yaml](openapi/api_config.yaml). A arquitetura e o fluxo de deploy estão descritos em [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Documentação técnica
 

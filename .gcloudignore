@@ -1,0 +1,17 @@
+# Do not upload tests, docs, or env to Cloud Functions
+.git
+.gitignore
+.env
+.venv
+venv
+__pycache__
+*.pyc
+.pytest_cache
+.coverage
+htmlcov
+tests/
+docs/
+*.md
+!README.md
+.cursorignore
+.plans
